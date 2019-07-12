@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/add.css">
+    <title>电子发票详情</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="total-money">¥ <span id="totalAmount">0.00</span></div>
+            <div class="card-title">发票总额</div>
+            <ul class="info-detail" id="infolist">
+
+            </ul>
+            <div class="sub-info-detail">
+                <span>开票方</span>
+                <span id="companyName"></span>
+            </div>
+            <!-- 波浪 -->
+            <div class="wave"></div>
+        </div>
+    </div>
+</body>
+<script src="./libs/jquery-1.10.2.min.js"></script>
+<script src="./js/common.js"></script>
+<script src="./js/url.js"></script>
+<script>
+    var houseId = GetUrlParam('houseId') ? GetUrlParam('houseId') : 'ad25afc7-347e-4041-840c-a77b00ba545e'; // 房屋id
+    var detailIds = GetUrlParam('detailIds') ? GetUrlParam('detailIds') : ''; // 用户id
+
+    // 获取详情
+    function getDetails() {
+        var htmls = "";
+        $.ajax({
+            url: basicUrl + "/invoice/getHistoryDetail",
+            type: "POST",
+            data: {
+                houseId: houseId,
+                detailIds: detailIds
+            },
+            async: false,
+            contentType: "application/x-www-form-urlencoded",
+            success: function(result) {
+                if (result.errcode == 200) {
+                    var data = result.data;
+                    $('#companyName').text(data.companyName);
+                    $('#totalAmount').text(data.totalAmount);
+                    for (var i = 0; i < data.details.length; i++) {
+                        htmls += '<li>' +
+                            '<span>' + data.details[i].subName + '</span>' +
+                            '<span>¥ ' + data.details[i].ssAmount + '</span>' +
+                            '</li>';
+                    }
+                    $("#infolist").html(htmls);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                panelAlert(textStatus);
+            }
+        });
+    }
+
+    $(document).ready(function() {
+
+        getDetails();
+    });
+</script>
+
+</html>

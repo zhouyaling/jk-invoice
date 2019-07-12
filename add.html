@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/add.css">
+    <title>开具电子发票</title>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 内容区域 -->
+        <div class="wrap">
+            <div class="w-form">
+                <h3 class="w-title">发票详情</h3>
+                <div class="w-form-item w-form-item-spec">
+                    <div class="form-label">抬头类型</div>
+                    <div class="label-value">
+                        <span id="invoiceTypeLabel">企业单位</span>
+                        <input type="text" id="invoiceType" name="invoiceType" value="0" style="display:none;" />
+                        <!--  <label>
+                            <input type="radio" name="type"  value="0" checked="checked" />企业单位
+                            <div class="radio-checked display-block"></div>
+                            <div class="radio-uncheck display-hide"></div>
+                        </label>
+                        <label>
+                            <input type="radio" name="type" value="1"/>个人/非企业单位
+                            <div class="radio-checked"></div>
+                            <div class="radio-uncheck"></div>
+                        </label> -->
+                    </div>
+                </div>
+                <div class="w-form-item">
+                    <div class="form-label">发票抬头</div>
+                    <div class="label-value"><input type="text" id="invoiceTitle" placeholder="请输入发票抬头" /></div>
+                </div>
+                <div class="w-form-item company-mark">
+                    <div class="form-label">税号</div>
+                    <div class="label-value"><input type="text" id="invoiceNumber" placeholder="请输入税号" /></div>
+                </div>
+                <div class="w-form-item">
+                    <div class="form-label">总金额</div>
+                    <div class="label-value">
+                        <div><span class="color-red" id="invoiceAmount">0.00</span> 元</div>
+                        <div class="label-detail" onclick="showDetail()">查看详情</div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-form">
+                <h3 class="w-title">接收方式</h3>
+                <div class="w-form-item">
+                    <div class="form-label">电子邮箱</div>
+                    <div class="label-value">
+                        <input type="text" id="invoiceEmail" placeholder="请输入电子邮箱" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 弹窗 -->
+        <div class="panel" id="conformPanel">
+            <div class="panel-card">
+                <div class="panel-colse" onclick="closePanel()"></div>
+                <div class="panel-title">开具电子发票</div>
+                <div>
+                    <ul class="panel-form">
+                        <li>
+                            <span class="panel-form-label">发票抬头</span>
+                            <span class="panel-form-value" id="panelInvoiceTitle"></span>
+                        </li>
+                        <li class="spec">
+                            <span class="panel-form-label">税号</span>
+                            <span class="panel-form-value" id="panelInvoiceNumber"></span>
+                        </li>
+                        <li>
+                            <span class="panel-form-label">电子邮件</span>
+                            <span class="panel-form-value" id="panelInvoiceEmail"></span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="attention-box">
+                    <p>请确认邮箱无误，电子发票将在系统开具后发送至您的邮箱，请注意查收。</p>
+                    <!--  <p class="attention">您选择的发票为个人抬头，如需报销，请选择公司抬头发票。</p> -->
+                </div>
+                <div class="btn panel-btn" onclick="sumbitConfirm()">确认提交</div>
+                <div class="panel-bolang"></div>
+            </div>
+        </div>
+        <!-- 底部按钮 -->
+        <div class="footer">
+            <div class="btn footer-btn" onclick="submit()">提交</div>
+        </div>
+    </div>
+</body>
+<script src="./libs/jquery-1.10.2.min.js"></script>
+<script src="./js/common.js"></script>
+<script src="./js/url.js"></script>
+<script>
+    var houseId = GetUrlParam('houseId') ? GetUrlParam('houseId') : ''; // 房屋id
+    var userId = GetUrlParam('userId') ? GetUrlParam('userId') : 0; // 用户id
+    var historyIds = GetUrlParam('historyIds') ? GetUrlParam('historyIds') : ""; // 历史id
+    var resultData = {};
+
+    // 获取开票信息
+    function getEnableData() {
+        $.ajax({
+            url: basicUrl + "/invoice/getEnableData",
+            type: "POST",
+            data: {
+                houseId: houseId,
+                userId: userId,
+                historyIds: historyIds
+            },
+            async: false,
+            contentType: "application/x-www-form-urlencoded",
+            success: function(result) {
+                if (result.errcode == 200) {
+                    var data = result.data;
+                    resultData = data;
+                    $('#invoiceAmount').text(data.allAmount);
+                    $('#invoiceEmail').val(data.emailAddr);
+                    $('#panelInvoiceEmail').text(data.emailAddr);
+                    if (data.invoiceType == 1) {
+                        $('#invoiceTitle').val(data.invoiceHead);
+                        $('#panelInvoiceTitle').text(data.invoiceHead);
+                    }
+                    changeInvoiceType();
+                    detailIds = data.detailIds;
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                panelAlert(textStatus);
+            }
+        });
+    }
+    getEnableData();
+
+    // 切换抬头类型
+    function changeInvoiceType() {
+        var type = resultData.invoiceType;
+        $('#invoiceType').val(type);
+        if (type == 1) {
+            $('#invoiceTypeLabel').text("个人/非企业单位");
+            $('.company-mark').addClass('display-hide');
+        } else if (type == 2) {
+            $('#invoiceTypeLabel').text("企业单位");
+            $('.company-mark').removeClass('display-hide');
+        }
+    }
+
+    // 查看详情
+    function showDetail() {
+        window.location.href = "detail-money.html?houseId=" + houseId + "&detailIds=" + resultData.detailIds;
+    }
+
+    // 提交
+    function submit() {
+        // 校验
+        if (!$('#invoiceTitle').val()) {
+            panelAlert("请填写发票抬头");
+            return;
+        }
+        if ($('#invoiceType').val() != 1 && !$('#invoiceNumber').val()) {
+            panelAlert("请填写税号");
+            return;
+        }
+        if (!$('#invoiceEmail').val()) {
+            panelAlert("请填写电子邮箱");
+            return;
+        }
+        if ($('#invoiceEmail').val().replace(/\s*/g, "")) {
+            var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$"); //正则表达式
+            if (!reg.test($('#invoiceEmail').val().replace(/\s*/g, ""))) {
+                panelAlert("邮箱格式错误，请修改");　
+                return;　　
+            }
+        }
+        $('#panelInvoiceTitle').text($('#invoiceTitle').val());
+        $('#panelInvoiceNumber').text($('#invoiceNumber').val());
+        $('#panelInvoiceEmail').text($('#invoiceEmail').val());
+
+        $('#conformPanel').addClass('display-block');
+    }
+
+    // 关闭弹窗
+    function closePanel() {
+        $('#conformPanel').removeClass('display-block');
+    }
+
+    // 确认提交
+    function sumbitConfirm() {
+        $('#conformPanel').removeClass('display-block');
+        if (!$('#invoiceTitle').val()) {
+            panelAlert("请填写发票抬头");
+            return;
+        }
+        if ($('#invoiceType').val() != 1 && !$('#invoiceNumber').val()) {
+            panelAlert("请填写税号");
+            return;
+        }
+        if (!$('#invoiceEmail').val()) {
+            panelAlert("请填写电子邮箱");
+            return;
+        }
+
+        $.ajax({
+            url: basicUrl + "/invoice/issueEInvoice",
+            type: "POST",
+            data: {
+                houseId: houseId,
+                userId: userId,
+                payHistoryId: resultData.payHistoryId,
+                allAmount: resultData.allAmount,
+                invoiceType: resultData.invoiceType,
+                emailAddr: $('#invoiceEmail').val().replace(/\s*/g, ""),
+                invoiceHead: $('#invoiceTitle').val(),
+                taxNumber: resultData.invoiceType == 1 ? "" : $('#invoiceNumber').val(),
+                userName: resultData.userName,
+                detailId: resultData.detailIds,
+                projectId: resultData.projectId
+
+            },
+            async: false,
+            contentType: "application/x-www-form-urlencoded",
+            success: function(result) {
+                if (result.errcode == 200) {
+                    window.location.href = "result.html?type=1";
+                } else {
+                    panelAlert(result.errmsg);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                panelAlert(textStatus);
+            }
+        });
+    }
+</script>
+
+</html>

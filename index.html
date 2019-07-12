@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/common.css">
+    <title>loading...</title>
+</head>
+
+<body>
+</body>
+<script src="./libs/jquery-1.10.2.min.js"></script>
+<script src="./js/common.js"></script>
+<script src="./js/url.js"></script>
+<script>
+    var status = 0; // 判断是否已经开发票
+    var houseId = GetUrlParam('houseId') ? GetUrlParam('houseId') : ''; // 房屋ID
+    var userId = GetUrlParam('userId') ? GetUrlParam('userId') : ''; // 用户ID
+    var historyIds = GetUrlParam('historyIds') ? GetUrlParam('historyIds') : ''; // 历史ID
+
+    // 是否已开票
+    function judgeEnable() {
+        debugger;
+        if (!houseId || !userId || !historyIds) {
+            return;
+        }
+        $.ajax({
+            url: basicUrl + "/invoice/getEnableData",
+            type: "POST",
+            data: {
+                houseId: houseId,
+                userId: userId,
+                historyIds: historyIds,
+            },
+            async: false,
+            contentType: "application/x-www-form-urlencoded",
+            success: function(result) {
+                if (result.errcode == 200) {
+                    var data = result.data;
+                    if (data.status && data.status == 1) {
+                        window.location.href = "detail.html?invoiceId=" + data.invoiceId;
+                    } else {
+                        window.location.href = "add.html?houseId=" + houseId + "&userId=" + userId + "&historyIds=" + historyIds;
+                    }
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                panelAlert(textStatus);
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        judgeEnable();
+        //window.location.href = "detail.html?invoiceId=51";
+    });
+</script>
+
+</html>

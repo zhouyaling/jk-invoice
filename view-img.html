@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/add.css">
+    <title>电子发票详情</title>
+</head>
+
+<body>
+    <!-- 图片方式 页面弃用 -->
+    <div class="container back-black">
+        <div class="img-box">
+            <img src="./images/test.png" alt="">
+        </div>
+        <div class="save-pic" onclick="test()">保存图片</div>
+    </div>
+</body>
+<script src="./libs/jquery-1.10.2.min.js"></script>
+<script src="./libs/underscore.js"></script>
+<script src="./libs/pinchzoom.js"></script>
+<script>
+    $(function() {
+        $('.img-box').each(function() {
+            new RTP.PinchZoom($(this), {});
+        });
+    })
+
+
+    var triggerEvent = "touchstart"; //指定下载方式
+
+    function saveAs(Url) {
+        var blob = new Blob([''], {
+            type: 'application/octet-stream'
+        });
+
+        var url = URL.createObjectURL(blob);
+
+        var a = document.createElement('a');
+
+        a.href = Url;
+
+        a.download = Url.replace(/(.*\/)*([^.]+.*)/ig, "$2").split("?")[0];
+
+        var e = document.createEvent('MouseEvents');
+
+        e.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+
+        a.dispatchEvent(e);
+
+        URL.revokeObjectURL(url);
+
+    }
+
+    function test() {
+        var imgs = document.getElementsByTagName("img");
+        var url = imgs[0].getAttribute("src");
+
+        saveAs(url);
+    }
+</script>
+
+</html>

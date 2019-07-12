@@ -1,0 +1,621 @@
+/* 开具电子发票页面样式 start*/
+
+.wrap {
+    padding-bottom: 8rem;
+}
+
+.w-title {
+    font-size: 13px;
+    color: #999999;
+    padding: 0.6rem 5%;
+}
+
+.w-form {
+    width: 100%;
+}
+
+.w-form-item {
+    border-bottom: 1px solid #EEEEEE;
+    padding: 1.2rem 4.5%;
+    display: flex;
+    align-items: center;
+    background: #fff;
+}
+
+.w-form-item:last-of-type {
+    border-bottom: none;
+}
+
+.form-label {
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: #4B4B4B;
+    text-align: left;
+    min-width: 8rem;
+    width: 22%;
+    overflow: hidden;
+}
+
+.label-spec {
+    width: 80%;
+}
+
+.label-sub {
+    font-size: 1.3rem;
+    color: #AEAEAE;
+    text-align: left;
+    font-weight: normal;
+}
+
+.label-value {
+    width: 78%;
+    font-size: 1.5rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.label-value span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.label-value label {
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+    position: relative;
+}
+
+.label-value label:last-child {
+    margin-right: 0;
+}
+
+.label-value input[type="radio"] {
+    opacity: 0;
+    width: 1.6rem;
+    height: 1.6rem;
+    margin: 0 0.5rem;
+}
+
+.label-value input {
+    width: 100%;
+}
+
+.spec-label {
+    width: 100%;
+    position: relative;
+}
+
+.spec-label span {
+    display: block;
+}
+
+.spec-label span:nth-of-type(1) {
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: #4B4B4B;
+    display: inline-block;
+}
+
+.spec-label span:nth-of-type(2) {
+    font-size: 1.3rem;
+    color: #AEAEAE;
+    margin-top: 0.3rem;
+}
+
+.spec-value {
+    width: 25%;
+    font-size: 1.3rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.label-detail {
+    font-size: 1.4rem;
+    color: #A4A4A4;
+    padding-right: 1.2rem;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    display: block;
+}
+
+.label-detail::after {
+    content: "";
+    width: 0.7rem;
+    height: 1.3rem;
+    position: absolute;
+    background: url(../images/arrow-right.png) no-repeat 0;
+    background-size: 100%;
+    right: 0;
+    bottom: 0.2rem;
+}
+
+.show-panel {
+    display: block!important;
+    animation: showp 0.2s linear 1;
+}
+
+@keyframes showp {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+
+/* 开具电子发票页面样式 end*/
+
+
+/* 开具电子发票详情页面 start*/
+
+.card {
+    width: 90%;
+    margin: 5% 5%;
+    background: #fff;
+    /*  box-shadow: 0px -3px 9px rgba(0, 0, 0, 0.08); */
+    border-radius: 0.4rem;
+    padding: 2.5rem 0;
+    position: relative;
+}
+
+.card-title {
+    font-size: 1.7rem;
+    color: #4B4B4B;
+    text-align: center;
+}
+
+.total-money {
+    font-size: 2rem;
+    color: #FF364F;
+    text-align: center;
+}
+
+.total-money span {
+    font-size: 3rem;
+}
+
+.info-detail {
+    border-top: 1px solid #EEEEEE;
+    border-bottom: 1px solid #EEEEEE;
+    margin: 2.4rem 5%;
+    padding-bottom: 2rem;
+}
+
+.info-detail li {
+    margin-top: 1.8rem;
+    padding: 0px 2.5%;
+}
+
+.info-detail li span:nth-of-type(1) {
+    font-size: 1.5rem;
+    color: #4B4B4B;
+    font-weight: 700;
+    display: inline-block;
+    text-align: left;
+    max-width: 72%;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.info-detail li span:nth-of-type(2) {
+    font-size: 1.5rem;
+    color: #676767;
+    float: right;
+    text-align: right;
+    max-width: 30%;
+    font-weight: 700;
+    /*    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; */
+}
+
+.sub-info-detail {
+    margin: 2.4rem 5%;
+    padding: 0px 2.5%;
+}
+
+.sub-info-detail span:nth-of-type(1) {
+    font-size: 1.5rem;
+    color: #4B4B4B;
+    font-weight: 700;
+}
+
+.sub-info-detail span:nth-of-type(2) {
+    font-size: 1.5rem;
+    color: #676767;
+    float: right;
+    display: block;
+    text-align: right;
+    max-width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.wave {
+    position: absolute;
+    z-index: 5;
+    bottom: -1rem;
+    left: 0;
+    transform-origin: center left;
+    /*  transform: rotate(90deg); */
+    width: 100%;
+    height: 1.8rem;
+    background-image: radial-gradient(circle, #F4F4F5, #F4F4F5 7px, transparent 0px, transparent 4px, transparent 44px, transparent);
+    background-size: 1.8rem 1.8rem;
+    background-repeat: repeat-x;
+}
+
+
+/* 开具电子发票详情页面 end*/
+
+
+/* 确认提交弹窗样式 start*/
+
+.panel {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+}
+
+.panel-card {
+    width: 78%;
+    min-height: 50%;
+    padding: 0 6%;
+    background: #fff;
+    border-radius: 0.4rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+}
+
+.panel-colse {
+    width: 4rem;
+    height: 4rem;
+    background: url(../images/close.png) no-repeat center;
+    background-size: 1.2rem auto;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    z-index: 1;
+}
+
+.panel-title {
+    width: 100%;
+    height: 3.3rem;
+    font-size: 2.2rem;
+    color: #9D3A29;
+    letter-spacing: 0;
+    text-align: center;
+    background: url(../images/invoice-seal.png) no-repeat center;
+    background-size: auto 3.3rem;
+    margin: 2.5rem 0;
+}
+
+.panel-btn {
+    width: 100% !important;
+    margin: 2.5rem 0!important;
+}
+
+.panel-form li {
+    margin-bottom: 3rem;
+}
+
+.panel-form-label {
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: #4B4B4B;
+    text-align: left;
+    width: 8rem;
+    display: block;
+    float: left;
+}
+
+.panel-form-value {
+    display: block;
+    font-size: 1.5rem;
+    color: #676767;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.spec {
+    display: none;
+}
+
+.attention-box {
+    font-size: 1.3rem;
+    color: #878787;
+    border-top: 1px solid #EEEEEE;
+}
+
+.attention-box .attention {
+    display: none;
+}
+
+.attention-box p {
+    padding-top: 1rem;
+}
+
+
+/* 确认提交弹窗样式 end*/
+
+
+/* 提交结果页面样式 start */
+
+.result-message {
+    padding-top: 19%;
+    padding-bottom: 24%;
+}
+
+.result-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.result-icon img {
+    width: 10.3rem;
+    height: 10.3rem;
+    display: none;
+}
+
+.result-icon p {
+    font-size: 2rem;
+    color: #4B4B4B;
+    text-align: center;
+    margin-top: -2rem;
+    display: none;
+    /* font-weight: 700; */
+}
+
+.success-btn {
+    width: 82%;
+    margin: 0 9%;
+    height: 4.3rem;
+    display: block;
+    line-height: 4.3rem;
+    display: none;
+}
+
+.primary-btn {
+    width: 82%;
+    margin: 0 9%;
+    height: 4.1rem;
+    background: #fff!important;
+    border: 1px solid #FF364F;
+    color: #FF364F;
+    margin-top: 2.4rem;
+    display: block;
+    line-height: 4.1rem;
+}
+
+
+/* 提交结果页面样式 end */
+
+
+/* 缴费比数明细页面样式 start */
+
+.list-item-box {
+    width: 100%;
+    background: #fff;
+}
+
+.list-item {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-left: 5%;
+    border-bottom: 1px solid #EEEEEE;
+    padding: 3.5% 5% 3.5% 0;
+}
+
+.list-item-label {
+    float: left;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 60%;
+}
+
+.list-item-label span:nth-of-type(1) {
+    font-size: 1.5rem;
+    color: #959595;
+}
+
+.list-item-label span:nth-of-type(2) {
+    font-size: 1.5rem;
+    color: #333333;
+    margin-top: 0.5rem;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.list-item-money {
+    float: right;
+    font-size: 1.4rem;
+    width: 40%;
+    text-align: right;
+    color: #565656;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.list-item:last-child {
+    border-bottom: none;
+}
+
+
+/* 缴费比数明细页面样式 end */
+
+
+/* 电子发票预览 start */
+
+.container .pinch-zoom-container {
+    height: 80%!important;
+    position: relative;
+    top: 0%;
+    /* transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -o-transform: translateY(-50%); */
+}
+
+.iframe-box {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+}
+
+.iframe-box iframe {
+    width: 100%;
+    -webkit-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+}
+
+.img-box {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    top: 10%;
+}
+
+.img-box img {
+    width: 100%;
+    -webkit-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+}
+
+.save-pic {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    color: #fff;
+    border: 1px solid #979797;
+    border-radius: 3px;
+    padding: 0.5rem 1.5rem;
+    z-index: 2;
+}
+
+
+/* 电子发票预览 end */
+
+
+/* 处理不同分辨率 start*/
+
+@media(max-width:320px) {
+    .form-label {
+        min-width: 7.6rem;
+    }
+    .label-value label {
+        margin-right: 0.4rem;
+    }
+    .label-value input[type="radio"] {
+        margin: 0 0.2rem;
+    }
+    .w-form-item-spec {
+        padding: 1.2rem 0 1.2rem 4.5%;
+    }
+    .panel-title {
+        margin: 1.8rem 0;
+    }
+    .panel-form li {
+        margin-bottom: 2rem;
+    }
+    .panel-btn {
+        margin: 1.8rem 0!important;
+    }
+    .panel-card {
+        transform: translate(-50%, -55%);
+        -ms-transform: translate(-50%, -55%);
+        -moz-transform: translate(-50%, -55%);
+        -webkit-transform: translate(-50%, -55%);
+        -o-transform: translate(-50%, -55%);
+    }
+}
+
+@media(min-width:414px) {
+    .attention-box p {
+        padding-top: 1.5rem;
+    }
+    .result-message {
+        padding-top: 25%;
+        padding-bottom: 29%;
+    }
+    .panel-card {
+        width: 75%;
+        min-height: 48%;
+    }
+}
+
+
+/* iphone X */
+
+@media(min-height:812px) {
+    .attention-box p {
+        padding-top: 1.5rem;
+    }
+    .panel-card {
+        min-height: 45%;
+    }
+}
+
+
+/* 处理不同分辨率 end*/

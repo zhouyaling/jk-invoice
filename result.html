@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/add.css">
+    <title>开具电子发票</title>
+</head>
+
+<body>
+    <div class="container back-white">
+        <div class="result-message">
+            <div class="result-icon">
+                <img class="success-mark" src="./images/icon-success.png" alt="">
+                <img class="fail-mark" src="./images/icon-fail.png" alt="">
+                <p class="success-mark">提交成功</p>
+                <p class="fail-mark">数据异常，提交失败</p>
+            </div>
+
+        </div>
+        <div>
+            <div class="btn success-btn" onclick="showDetail()">查看详情</div>
+            <!-- <a class="btn primary-btn" href="info-detail.html">查看详情</a> -->
+        </div>
+    </div>
+    </div>
+</body>
+<script src="./libs/jquery-1.10.2.min.js"></script>
+<script src="./js/common.js"></script>
+<script>
+    var type = GetUrlParam('type') ? GetUrlParam('type') : '0'; // 1 成功 0失败
+    var invoiceId = GetUrlParam('invoiceId') ? GetUrlParam('invoiceId') : ''; // 发票id
+
+    if (type == 1) {
+        $('.success-mark').addClass('display-block');
+        $('.fail-mark').removeClass('display-block');
+        $('.success-btn').addClass('display-block');
+    } else {
+        $('.success-mark').removeClass('display-block');
+        $('.fail-mark').addClass('display-block');
+
+    }
+
+    function showDetail() {
+        window.location.href = "detail.html?invoiceId=" + invoiceId;
+    }
+</script>
+
+</html>

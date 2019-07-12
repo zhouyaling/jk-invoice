@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/add.css">
+    <title>电子发票详情</title>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 内容区域 -->
+        <div class="wrap">
+            <div class="w-form">
+                <div class="w-form-item">
+                    <div class="spec-label">
+                        <span>电子发票已开具</span>
+                        <span class="label-sub" id="createDate">&nbsp;</span>
+                        <span class="label-detail" onclick="showDetailPdf()">查看</span>
+                    </div>
+                </div>
+            </div>
+            <div class="w-form">
+                <h3 class="w-title">接收信息</h3>
+                <div class="w-form-item">
+                    <div class="form-label">电子邮箱</div>
+                    <div class="label-value">
+                        <div><span id="email"></span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-form">
+                <h3 class="w-title">发票信息</h3>
+                <div class="w-form-item">
+                    <div class="form-label">发票抬头</div>
+                    <div class="label-value" id="head"><span></span></div>
+                </div>
+                <div class="w-form-item display-hide">
+                    <div class="form-label">税号</div>
+                    <div class="label-value"><span id="headTax"></span></div>
+                </div>
+                <div class="w-form-item">
+                    <div class="form-label">总金额</div>
+                    <div class="label-value">
+                        <div><span class="color-red" id="total">0.00</span> 元</div>
+                    </div>
+                </div>
+                <div class="w-form-item">
+                    <div class="form-label">申请时间</div>
+                    <div class="label-value"><span id="applyTime"></span></div>
+                </div>
+            </div>
+            <div class="w-form" style="margin-top:10px;">
+                <div class="w-form-item">
+                    <div class="spec-label">
+                        <span>1张发票，含<span id="payCount">0</span>笔缴费</span>
+                        <span class="label-sub" id="createDate1">&nbsp;</span>
+                        <span class="label-detail" onclick="showDetail()">查看</span>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- 底部按钮 -->
+    <div class="footer">
+        <a href="tel:13527430083">
+            <div class="btn footer-btn"><img class="btn-icon" src="./images/icon-phone.png" alt=""> 客服热线</div>
+        </a>
+    </div>
+</body>
+<script src="./libs/jquery-1.10.2.min.js"></script>
+<script src="./js/common.js"></script>
+<script src="./js/url.js"></script>
+<script>
+    var invoiceId = GetUrlParam('invoiceId') ? GetUrlParam('invoiceId') : '46'; // 发票id
+    var pdfUrl = "";
+
+    // 获取发票信息
+    function getInvoiceData() {
+        $.ajax({
+            url: basicUrl + "/invoice/getInvoiceDetail",
+            type: "POST",
+            data: {
+                invoiceId: invoiceId
+            },
+            async: false,
+            contentType: "application/x-www-form-urlencoded",
+            success: function(result) {
+                if (result.errcode == 200) {
+                    var data = result.data;
+                    if (data.invoiceType == 2) {
+                        $('.display-hide').removeClass('display-hide');
+                    }
+                    $('#createDate').text(data.createDate);
+                    $('#createDate1').text(data.createDate);
+                    $('#email').text(data.email);
+                    $('#head').text(data.head);
+                    $('#headTax').text(data.headTax);
+                    $('#total').text(data.total);
+                    $('#applyTime').text(data.applyTime);
+                    $('#payCount').text(data.payCount);
+                    pdfUrl = data.pdfUrl;
+
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                panelAlert(textStatus);
+            }
+        });
+    }
+
+    // 查看缴费笔数
+    function showDetail() {
+        window.location.href = "detail-info.html?invoiceId=" + invoiceId;
+    }
+
+    // 查看pdf
+    function showDetailPdf() {
+        pdfUrl = "https://staticfile.tq-service.com/20190530/9c12b76a0a0246629570122dfb5e4de8.pdf";
+        if (pdfUrl !== undefined) {
+            window.location.href = "view.html?pdfUrl=" + pdfUrl;
+        }
+    }
+
+    $(document).ready(function() {
+        getInvoiceData();
+    });
+</script>
+
+</html>
