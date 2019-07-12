@@ -201,14 +201,13 @@
 .info-detail li span:nth-of-type(1) {
     font-size: 1.5rem;
     color: #4B4B4B;
-    font-weight: 700;
+    /*  font-weight: 700; */
     display: inline-block;
     text-align: left;
     max-width: 72%;
-    font-weight: 700;
-    overflow: hidden;
+    /* overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: nowrap; */
 }
 
 .info-detail li span:nth-of-type(2) {
@@ -242,9 +241,15 @@
     display: block;
     text-align: right;
     max-width: 80%;
-    overflow: hidden;
+    /* overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: nowrap; */
+}
+
+.spec-company {
+    float: left;
+    text-align: left;
+    font-weight: normal!important;
 }
 
 .wave {

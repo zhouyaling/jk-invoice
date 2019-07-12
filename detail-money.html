@@ -21,7 +21,9 @@
             </ul>
             <div class="sub-info-detail">
                 <span>开票方</span>
-                <span id="companyName"></span>
+                <span>
+                    <span class="spec-company" id="companyName"></span>
+                </span>
             </div>
             <!-- 波浪 -->
             <div class="wave"></div>
@@ -32,7 +34,7 @@
 <script src="./js/common.js"></script>
 <script src="./js/url.js"></script>
 <script>
-    var houseId = GetUrlParam('houseId') ? GetUrlParam('houseId') : 'ad25afc7-347e-4041-840c-a77b00ba545e'; // 房屋id
+    var houseId = GetUrlParam('houseId') ? GetUrlParam('houseId') : ''; // 房屋id
     var detailIds = GetUrlParam('detailIds') ? GetUrlParam('detailIds') : ''; // 用户id
 
     // 获取详情

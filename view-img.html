@@ -15,16 +15,20 @@
     <!-- 图片方式 页面弃用 -->
     <div class="container back-black">
         <div class="img-box">
-            <img src="./images/test.png" alt="">
+            <img id="pngUrl" src="" alt="">
         </div>
-        <div class="save-pic" onclick="test()">保存图片</div>
+        <!-- <div class="save-pic" onclick="test()">保存图片</div> -->
     </div>
 </body>
 <script src="./libs/jquery-1.10.2.min.js"></script>
+<script src="./js/common.js"></script>
 <script src="./libs/underscore.js"></script>
 <script src="./libs/pinchzoom.js"></script>
 <script>
+    var pngUrl = GetUrlParam('pngUrl') ? GetUrlParam('pngUrl') : '';
+
     $(function() {
+        $('#pngUrl').attr("src", pngUrl);
         $('.img-box').each(function() {
             new RTP.PinchZoom($(this), {});
         });
@@ -59,7 +63,6 @@
     function test() {
         var imgs = document.getElementsByTagName("img");
         var url = imgs[0].getAttribute("src");
-
         saveAs(url);
     }
 </script>

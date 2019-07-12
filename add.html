@@ -36,7 +36,10 @@
                 </div>
                 <div class="w-form-item">
                     <div class="form-label">发票抬头</div>
-                    <div class="label-value"><input type="text" id="invoiceTitle" placeholder="请输入发票抬头" /></div>
+                    <div class="label-value">
+                        <span id="invoiceTitleLabel"></span>
+                        <input type="text" id="invoiceTitle" placeholder="" style="display:none;" />
+                    </div>
                 </div>
                 <div class="w-form-item company-mark">
                     <div class="form-label">税号</div>
@@ -123,10 +126,10 @@
                     $('#invoiceAmount').text(data.allAmount);
                     $('#invoiceEmail').val(data.emailAddr);
                     $('#panelInvoiceEmail').text(data.emailAddr);
-                    if (data.invoiceType == 1) {
-                        $('#invoiceTitle').val(data.invoiceHead);
-                        $('#panelInvoiceTitle').text(data.invoiceHead);
-                    }
+                    $('#invoiceTitle').val(data.invoiceHead);
+                    $('#invoiceTitleLabel').text(data.invoiceHead);
+                    $('#panelInvoiceTitle').text(data.invoiceHead);
+
                     changeInvoiceType();
                     detailIds = data.detailIds;
                 }
@@ -159,10 +162,10 @@
     // 提交
     function submit() {
         // 校验
-        if (!$('#invoiceTitle').val()) {
-            panelAlert("请填写发票抬头");
-            return;
-        }
+        /*  if (!$('#invoiceTitle').val()) {
+             panelAlert("请填写发票抬头");
+             return;
+         } */
         if ($('#invoiceType').val() != 1 && !$('#invoiceNumber').val()) {
             panelAlert("请填写税号");
             return;
@@ -181,6 +184,12 @@
         $('#panelInvoiceTitle').text($('#invoiceTitle').val());
         $('#panelInvoiceNumber').text($('#invoiceNumber').val());
         $('#panelInvoiceEmail').text($('#invoiceEmail').val());
+
+        if (resultData.invoiceType == 2) {
+            $('.spec').addClass('display-block');
+        } else {
+            $('.spec').removeClass('display-block');
+        }
 
         $('#conformPanel').addClass('display-block');
     }
