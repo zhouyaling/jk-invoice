@@ -125,22 +125,22 @@ input {
 .radio-checked {
     position: absolute;
     left: 0;
-    top: 0.2rem;
-    width: 1.6rem;
-    height: 1.6rem;
+    top: 0rem;
+    width: 2rem;
+    height: 2rem;
     background: url(../images/radio-checked.png) no-repeat center;
-    background-size: 1.6rem auto;
+    background-size: 2rem auto;
     display: none;
 }
 
 .radio-uncheck {
     position: absolute;
     left: 0;
-    top: 0.2rem;
-    width: 1.6rem;
-    height: 1.6rem;
+    top: 0rem;
+    width: 2rem;
+    height: 2rem;
     background: url(../images/radio-uncheck.png) no-repeat center;
-    background-size: 1.6rem auto;
+    background-size: 2rem auto;
 }
 
 .display-block {

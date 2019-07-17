@@ -22,16 +22,6 @@
                     <div class="label-value">
                         <span id="invoiceTypeLabel">企业单位</span>
                         <input type="text" id="invoiceType" name="invoiceType" value="0" style="display:none;" />
-                        <!--  <label>
-                            <input type="radio" name="type"  value="0" checked="checked" />企业单位
-                            <div class="radio-checked display-block"></div>
-                            <div class="radio-uncheck display-hide"></div>
-                        </label>
-                        <label>
-                            <input type="radio" name="type" value="1"/>个人/非企业单位
-                            <div class="radio-checked"></div>
-                            <div class="radio-uncheck"></div>
-                        </label> -->
                     </div>
                 </div>
                 <div class="w-form-item">
@@ -236,7 +226,7 @@
             contentType: "application/x-www-form-urlencoded",
             success: function(result) {
                 if (result.errcode == 200) {
-                    window.location.href = "result.html?type=1";
+                    window.location.href = "result.html?type=1&invoiceId=" + result.data.invoiceId;
                 } else {
                     panelAlert(result.errmsg);
                 }

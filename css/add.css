@@ -201,7 +201,7 @@
 .info-detail li span:nth-of-type(1) {
     font-size: 1.5rem;
     color: #4B4B4B;
-    /*  font-weight: 700; */
+    font-weight: 700;
     display: inline-block;
     text-align: left;
     max-width: 72%;
@@ -443,7 +443,8 @@
     flex-direction: row;
     margin-left: 5%;
     border-bottom: 1px solid #EEEEEE;
-    padding: 3.5% 5% 3.5% 0;
+    /* padding: 3.5% 5% 3.5% 0; */
+    padding: 2rem 5% 2rem 0;
 }
 
 .list-item-label {
@@ -480,8 +481,27 @@
     flex-direction: column;
 }
 
+.list-item-money .arrow-action {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.list-item-money .arrow-action img {
+    width: 7px;
+    height: auto;
+    margin-left: 0.8rem;
+    margin-top: 0.2rem;
+}
+
 .list-item:last-child {
     border-bottom: none;
+}
+
+.list-item-action {
+    width: 3.5rem;
+    height: 4rem;
+    position: relative;
 }
 
 
@@ -561,6 +581,139 @@
 
 
 /* 电子发票预览 end */
+
+
+/* 开具电子发票入口页面 start */
+
+.card-list {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.card-list .card-item {
+    width: 50%;
+    margin: 1.7rem 1.7rem 0 1.7rem;
+    padding: 4.2rem 0;
+    text-align: center;
+    background: #ffffff;
+    border-radius: 0.4rem;
+}
+
+.card-list .card-item img {
+    width: 5.2rem;
+}
+
+.card-list .card-item:last-of-type {
+    margin-left: 0rem;
+}
+
+.card-list .card-item p {
+    font-size: 1.7rem;
+    color: #333333;
+    margin-top: 2.2rem;
+}
+
+.house-info {
+    padding: 2rem 0 2rem 2rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 0.8rem solid #F4F4F5;
+}
+
+.house-info img {
+    width: 2.6rem;
+    height: auto;
+    margin-right: 1rem;
+}
+
+.house-info .house-name {
+    font-size: 1.7rem;
+    color: #333333;
+    font-weight: 700;
+}
+
+.choose-bottom {
+    background: #F4F4F5;
+    width: 100%;
+    height: 6.4rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 9;
+    display: flex;
+    align-items: center;
+}
+
+.next-btn {
+    display: inline-block;
+    color: #ffffff;
+    background: #FF364F;
+    border-radius: 2.1rem;
+    padding: 0.8rem 2.8rem;
+    font-size: 1.7rem;
+    letter-spacing: 0.9px;
+    position: absolute;
+    right: 1.7rem;
+}
+
+.next-btn.gray-btn {
+    background: #C6C6CC!important;
+}
+
+.choose-bottom p {
+    font-size: 1.5rem;
+    color: #333333;
+    margin-left: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.choose-text {
+    display: inline-block;
+    margin: 0 0.5rem 0 1.5rem;
+}
+
+.choose-total {
+    font-size: 1.8rem;
+    color: #FF364F;
+    display: inline-block;
+    margin: 0 0.5rem;
+    /* font-weight: 700; */
+}
+
+.no-info {
+    width: 100%;
+    text-align: center;
+}
+
+.no-info img {
+    width: 14rem;
+    height: auto;
+    margin: 5rem 0 3rem 0;
+}
+
+.no-info p {
+    font-size: 1.6rem;
+    color: #967070;
+    letter-spacing: 0;
+}
+
+.no-info .go-btn {
+    font-size: 1.7rem;
+    color: #FF364F;
+    letter-spacing: 0.9px;
+    text-align: center;
+    border: 1px solid #FF364F;
+    border-radius: 0.4rem;
+    padding: 0.8rem 2.7rem;
+    margin-top: 9rem;
+    display: inline-block;
+}
+
+
+/* 开具电子发票入口页面 end */
 
 
 /* 处理不同分辨率 start*/

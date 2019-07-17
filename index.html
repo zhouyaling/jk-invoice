@@ -7,54 +7,39 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./css/common.css">
-    <title>loading...</title>
+    <link rel="stylesheet" href="./css/add.css">
+    <title>开具电子发票</title>
 </head>
 
-<body>
+<body class="">
+    <div class="card-list">
+        <div class="card-item" onclick="invoiceChoose()">
+            <img src="./images/icon-add.png" alt="">
+            <p>开具发票</p>
+        </div>
+        <div class="card-item" onclick="invoiceHistory()">
+            <img src="./images/icon-history.png" alt="">
+            <p>开票历史</p>
+        </div>
+    </div>
 </body>
 <script src="./libs/jquery-1.10.2.min.js"></script>
 <script src="./js/common.js"></script>
 <script src="./js/url.js"></script>
 <script>
     var status = 0; // 判断是否已经开发票
-    var houseId = GetUrlParam('houseId') ? GetUrlParam('houseId') : ''; // 房屋ID
+    var houseId = GetUrlParam('houseId') ? GetUrlParam('houseId') : ""; // 房屋ID
     var userId = GetUrlParam('userId') ? GetUrlParam('userId') : ''; // 用户ID
-    var historyIds = GetUrlParam('historyIds') ? GetUrlParam('historyIds') : ''; // 历史ID
 
-    // 是否已开票
-    function judgeEnable() {
-        if (!houseId || !userId || !historyIds) {
-            return;
-        }
-        $.ajax({
-            url: basicUrl + "/invoice/getEnableData",
-            type: "POST",
-            data: {
-                houseId: houseId,
-                userId: userId,
-                historyIds: historyIds,
-            },
-            async: false,
-            contentType: "application/x-www-form-urlencoded",
-            success: function(result) {
-                if (result.errcode == 200) {
-                    var data = result.data;
-                    if (data.status && data.status == 1) {
-                        window.location.href = "detail.html?invoiceId=" + data.invoiceId;
-                    } else {
-                        window.location.href = "add.html?houseId=" + houseId + "&userId=" + userId + "&historyIds=" + historyIds;
-                    }
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                panelAlert(textStatus);
-            }
-        });
+    // 开票
+    function invoiceChoose() {
+        window.location.href = "choose.html?houseId=" + houseId + "&userId=" + userId;
     }
 
-    $(document).ready(function() {
-        judgeEnable();
-    });
+    // 开票历史
+    function invoiceHistory() {
+        window.location.href = "history.html?houseId=" + houseId + "&userId=" + userId;
+    }
 </script>
 
 </html>
