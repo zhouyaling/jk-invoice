@@ -96,7 +96,7 @@
     var historyIds = GetUrlParam('historyIds') ? GetUrlParam('historyIds') : ""; // 历史id
     var resultData = {};
 
-    // 是否已开票
+    // 是否已开票 并获取开票信息
     function judgeEnable() {
         if (!houseId) {
             return;
@@ -116,7 +116,16 @@
                     if (data.status && data.status == 1) {
                         window.location.href = "index.html?houseId=" + houseId;
                     } else {
-                        getEnableData();
+                        resultData = data;
+                        $('#invoiceAmount').text(data.allAmount);
+                        $('#invoiceEmail').val(data.emailAddr);
+                        $('#panelInvoiceEmail').text(data.emailAddr);
+                        $('#invoiceTitle').val(data.invoiceHead);
+                        $('#invoiceTitleLabel').text(data.invoiceHead);
+                        $('#panelInvoiceTitle').text(data.invoiceHead);
+
+                        changeInvoiceType();
+                        detailIds = data.detailIds;
                     }
                 }
             },
@@ -125,39 +134,6 @@
             }
         });
     }
-
-    // 获取开票信息
-    function getEnableData() {
-        $.ajax({
-            url: basicUrl + "/invoice/getEnableData",
-            type: "POST",
-            data: {
-                houseId: houseId,
-                historyIds: historyIds
-            },
-            async: false,
-            contentType: "application/x-www-form-urlencoded",
-            success: function(result) {
-                if (result.errcode == 200) {
-                    var data = result.data;
-                    resultData = data;
-                    $('#invoiceAmount').text(data.allAmount);
-                    $('#invoiceEmail').val(data.emailAddr);
-                    $('#panelInvoiceEmail').text(data.emailAddr);
-                    $('#invoiceTitle').val(data.invoiceHead);
-                    $('#invoiceTitleLabel').text(data.invoiceHead);
-                    $('#panelInvoiceTitle').text(data.invoiceHead);
-
-                    changeInvoiceType();
-                    detailIds = data.detailIds;
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                panelAlert(textStatus);
-            }
-        });
-    }
-
 
     $(document).ready(function() {
         judgeEnable();
@@ -247,8 +223,8 @@
                 taxNumber: resultData.invoiceType == 1 ? "" : $('#invoiceNumber').val(),
                 userName: resultData.userName,
                 detailId: resultData.detailIds,
-                projectId: resultData.projectId
-
+                projectId: resultData.projectId,
+                orderNo: resultData.orderNo
             },
             async: false,
             contentType: "application/x-www-form-urlencoded",
