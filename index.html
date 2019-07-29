@@ -12,6 +12,7 @@
 </head>
 
 <body class="">
+    <div class="news"><img src="./images/icon-news.png" alt=""> 开票时间为工作日 8:30 — 18:00</div>
     <div class="card-list">
         <div class="card-item" onclick="invoiceChoose()">
             <img src="./images/icon-add.png" alt="">
@@ -27,18 +28,16 @@
 <script src="./js/common.js"></script>
 <script src="./js/url.js"></script>
 <script>
-    var status = 0; // 判断是否已经开发票
     var houseId = GetUrlParam('houseId') ? GetUrlParam('houseId') : ""; // 房屋ID
-    var userId = GetUrlParam('userId') ? GetUrlParam('userId') : ''; // 用户ID
 
     // 开票
     function invoiceChoose() {
-        window.location.href = "choose.html?houseId=" + houseId + "&userId=" + userId;
+        window.location.href = "choose.html?houseId=" + houseId;
     }
 
     // 开票历史
     function invoiceHistory() {
-        window.location.href = "history.html?houseId=" + houseId + "&userId=" + userId;
+        window.location.href = "history.html?houseId=" + houseId;
     }
 </script>
 

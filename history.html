@@ -28,7 +28,6 @@
 <script src="./js/url.js"></script>
 <script>
     var houseId = GetUrlParam('houseId') ? GetUrlParam('houseId') : ""; // 房屋ID
-    var userId = GetUrlParam('userId') ? GetUrlParam('userId') : ''; // 用户ID
 
     // 获取开票历史
     function getEnableDataList() {
@@ -37,7 +36,7 @@
             url: basicUrl + "/invoice/getInvoiceList",
             type: "POST",
             data: {
-                userId: userId
+                houseId: houseId
             },
             async: false,
             contentType: "application/x-www-form-urlencoded",
@@ -73,7 +72,7 @@
 
     // 去开票
     function goAdd() {
-        window.location.href = "choose.html?houseId=" + houseId + "&userId=" + userId;
+        window.location.href = "choose.html?houseId=" + houseId;
     }
 
     // 查看详情

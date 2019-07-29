@@ -19,12 +19,12 @@
         </div>
         <div class="list-item-box" id="list">
         </div>
-        <div class="no-info display-hide">
+        <div class="no-info">
             <img src="./images/icon-no.png" alt="">
-            <p>暂无可开发票</p>
+            <p>暂无开票信息</p>
         </div>
 
-        <div class="choose-bottom">
+        <div class="choose-bottom display-hide">
             <p><span class="choose-total" id="total-number">0</span>笔缴费 <span class="choose-text">共</span><span class="color-red">¥</span><span class="choose-total" id="toatl-money">0.00</span></p>
             <div class="next-btn gray-btn" onclick="next()">下一步</div>
         </div>
@@ -35,7 +35,6 @@
 <script src="./js/url.js"></script>
 <script>
     var houseId = GetUrlParam('houseId') ? GetUrlParam('houseId') : ''; // 房屋ID
-    var userId = GetUrlParam('userId') ? GetUrlParam('userId') : ''; // 用户ID
 
     function getEnableDataList() {
         var htmls = "";
@@ -43,8 +42,7 @@
             url: basicUrl + "/invoice/getEnableDataList",
             type: "POST",
             data: {
-                houseId: houseId,
-                userId: userId
+                houseId: houseId
             },
             async: false,
             contentType: "application/x-www-form-urlencoded",
@@ -52,9 +50,9 @@
                 if (result.errcode == 200) {
                     var data = result.data;
                     $('.house-name').text(result.houseInfo);
-                    if (data.length <= 0) {
-                        $('.no-info').removeClass('display-hide');
-                        return;
+                    if (data.length > 0) {
+                        $('.no-info').addClass('display-hide');
+                        $('.choose-bottom').removeClass('display-hide');
                     }
 
                     for (var i = 0; i < data.length; i++) {
@@ -129,39 +127,8 @@
             panelAlert("请至少选择一笔缴费");
             return;
         }
-        window.location.href = "add.html?houseId=" + houseId + "&userId=" + userId + "&historyIds=" + choosedIds.join(",");
+        window.location.href = "add.html?houseId=" + houseId + "&historyIds=" + choosedIds.join(",");
     }
-
-    // 是否已开票
-    /* function judgeEnable() {
-        if (!houseId || !userId) {
-            return;
-        }
-        $.ajax({
-            url: basicUrl + "/invoice/getEnableData",
-            type: "POST",
-            data: {
-                houseId: houseId,
-                userId: userId,
-                historyIds: historyIds,
-            },
-            async: false,
-            contentType: "application/x-www-form-urlencoded",
-            success: function(result) {
-                if (result.errcode == 200) {
-                    var data = result.data;
-                    if (data.status && data.status == 1) {
-                        window.location.href = "detail.html?invoiceId=" + data.invoiceId;
-                    } else {
-                        window.location.href = "add.html?houseId=" + houseId + "&userId=" + userId + "&historyIds=" + historyIds;
-                    }
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                panelAlert(textStatus);
-            }
-        });
-    } */
 
     $(document).ready(function() {
         getEnableDataList();

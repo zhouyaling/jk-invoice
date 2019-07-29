@@ -23,8 +23,8 @@
 
         </div>
         <div>
-            <div class="btn success-btn" onclick="showDetail()">查看详情</div>
-            <!-- <a class="btn primary-btn" href="info-detail.html">查看详情</a> -->
+            <div class="btn success-btn" onclick="goAdd()">开具发票</div>
+            <div class="btn primary-btn" onclick="goHistory()">开票历史</div>
         </div>
     </div>
     </div>
@@ -32,8 +32,8 @@
 <script src="./libs/jquery-1.10.2.min.js"></script>
 <script src="./js/common.js"></script>
 <script>
-    var type = GetUrlParam('type') ? GetUrlParam('type') : '0'; // 1 成功 0失败
-    var invoiceId = GetUrlParam('invoiceId') ? GetUrlParam('invoiceId') : ''; // 发票id
+    var houseId = GetUrlParam('houseId') ? GetUrlParam('houseId') : ""; // 房屋ID
+    var type = GetUrlParam('type') ? GetUrlParam('type') : '1'; // 1 成功 0失败
 
     if (type == 1) {
         $('.success-mark').addClass('display-block');
@@ -45,8 +45,12 @@
 
     }
 
-    function showDetail() {
-        window.location.href = "detail.html?invoiceId=" + invoiceId;
+    function goAdd() {
+        window.location.href = "index.html?houseId=" + houseId;
+    }
+
+    function goHistory() {
+        window.location.href = "history.html?houseId=" + houseId;
     }
 </script>
 

@@ -93,9 +93,38 @@
 <script src="./js/url.js"></script>
 <script>
     var houseId = GetUrlParam('houseId') ? GetUrlParam('houseId') : ''; // 房屋id
-    var userId = GetUrlParam('userId') ? GetUrlParam('userId') : 0; // 用户id
     var historyIds = GetUrlParam('historyIds') ? GetUrlParam('historyIds') : ""; // 历史id
     var resultData = {};
+
+    // 是否已开票
+    function judgeEnable() {
+        if (!houseId) {
+            return;
+        }
+        $.ajax({
+            url: basicUrl + "/invoice/getEnableData",
+            type: "POST",
+            data: {
+                houseId: houseId,
+                historyIds: historyIds,
+            },
+            async: false,
+            contentType: "application/x-www-form-urlencoded",
+            success: function(result) {
+                if (result.errcode == 200) {
+                    var data = result.data;
+                    if (data.status && data.status == 1) {
+                        window.location.href = "index.html?houseId=" + houseId;
+                    } else {
+                        getEnableData();
+                    }
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                panelAlert(textStatus);
+            }
+        });
+    }
 
     // 获取开票信息
     function getEnableData() {
@@ -104,7 +133,6 @@
             type: "POST",
             data: {
                 houseId: houseId,
-                userId: userId,
                 historyIds: historyIds
             },
             async: false,
@@ -129,7 +157,11 @@
             }
         });
     }
-    getEnableData();
+
+
+    $(document).ready(function() {
+        judgeEnable();
+    });
 
     // 切换抬头类型
     function changeInvoiceType() {
@@ -152,10 +184,6 @@
     // 提交
     function submit() {
         // 校验
-        /*  if (!$('#invoiceTitle').val()) {
-             panelAlert("请填写发票抬头");
-             return;
-         } */
         if ($('#invoiceType').val() != 1 && !$('#invoiceNumber').val()) {
             panelAlert("请填写税号");
             return;
@@ -210,7 +238,7 @@
             type: "POST",
             data: {
                 houseId: houseId,
-                userId: userId,
+                userId: resultData.userId,
                 payHistoryId: resultData.payHistoryId,
                 allAmount: resultData.allAmount,
                 invoiceType: resultData.invoiceType,
@@ -226,7 +254,7 @@
             contentType: "application/x-www-form-urlencoded",
             success: function(result) {
                 if (result.errcode == 200) {
-                    window.location.href = "result.html?type=1&invoiceId=" + result.data.invoiceId;
+                    window.location.href = "result.html?type=1&houseId=" + houseId;
                 } else {
                     panelAlert(result.errmsg);
                 }
